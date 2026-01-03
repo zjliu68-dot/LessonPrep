@@ -1,0 +1,7 @@
+{
+  "name": "SciPrep AI - 理科专属备课助手",
+  "description": "一个专为理科教师打造的智能备课与教学分析平台，支持教案生成、分层练习设计、学情分析及资源共享。",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
