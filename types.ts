@@ -12,21 +12,28 @@ export interface LessonPlan {
   createdAt: string;
 }
 
-export interface ExerciseSet {
+export interface Resource {
   id: string;
-  topic: string;
-  difficulty: 'easy' | 'medium' | 'hard';
-  questions: Array<{
-    type: string;
-    content: string;
-    answer: string;
-    level: '基础' | '提高' | '拓展';
-  }>;
+  title: string;
+  type: '教案' | '习题' | '实验' | '课件';
+  subject: string;
+  grade: string;
+  author: string;
+  downloads: number;
+  likes: number;
+  previewUrl: string;
+}
+
+export interface Exercise {
+  level: string;
+  content: string;
+  answer: string;
+  analysis: string;
 }
 
 export interface StudentReport {
   studentName: string;
-  mastery: { [key: string]: number }; // knowledge point -> score 0-100
+  mastery: { [key: string]: number };
   recentScores: number[];
   behaviorScore: number;
 }

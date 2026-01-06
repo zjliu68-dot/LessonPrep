@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard';
 import LessonPlanner from './components/LessonPlanner';
 import ExerciseLab from './components/ExerciseLab';
 import Analytics from './components/Analytics';
+import Hub from './components/Hub';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<AppView>('dashboard');
@@ -21,12 +22,7 @@ const App: React.FC = () => {
       case 'analytics':
         return <Analytics />;
       case 'hub':
-        return (
-          <div className="flex items-center justify-center h-[60vh] text-slate-400 flex-col gap-4">
-            <i className="fa-solid fa-boxes-packing text-6xl"></i>
-            <p className="text-xl font-medium">资源库模块开发中，敬请期待...</p>
-          </div>
-        );
+        return <Hub />;
       case 'collab':
         return (
           <div className="flex items-center justify-center h-[60vh] text-slate-400 flex-col gap-4">
@@ -58,9 +54,9 @@ const App: React.FC = () => {
   const getViewTitle = () => {
     switch (currentView) {
       case 'dashboard': return '我的教研工作台';
-      case 'lesson-planner': return '智能教案生成';
+      case 'lesson-planner': return 'AI 智能备课中心';
       case 'exercise-lab': return '练习与任务设计';
-      case 'hub': return '教案与资源共享平台';
+      case 'hub': return '全国优秀教研资源共享';
       case 'collab': return '协作教案编写';
       case 'analytics': return '实时学情看板';
       case 'personal-advice': return '个性化教学建议';

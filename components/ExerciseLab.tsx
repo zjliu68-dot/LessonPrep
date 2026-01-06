@@ -5,7 +5,7 @@ import { generateExercises } from '../services/geminiService';
 const ExerciseLab: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [topic, setTopic] = useState('');
-  const [grade, setGrade] = useState('初中物理');
+  const [grade, setGrade] = useState('初中数学');
   const [results, setResults] = useState<any[]>([]);
 
   const handleGenerate = async () => {
@@ -32,7 +32,7 @@ const ExerciseLab: React.FC = () => {
           <div className="flex-1">
             <input 
               type="text" 
-              placeholder="输入知识点（如：阿基米德原理、氧化还原反应...）"
+              placeholder="输入知识点（如：勾股定理、二次函数、阿基米德原理...）"
               className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-emerald-500 transition-all"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
@@ -43,6 +43,8 @@ const ExerciseLab: React.FC = () => {
             value={grade}
             onChange={(e) => setGrade(e.target.value)}
           >
+            <option>初中数学</option>
+            <option>高中数学</option>
             <option>初中物理</option>
             <option>初中化学</option>
             <option>高中物理</option>

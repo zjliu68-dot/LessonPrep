@@ -9,29 +9,42 @@ export const generateLessonPlan = async (params: {
   content: string;
   mode: string;
   subject: string;
+  files?: { data: string; mimeType: string }[];
 }) => {
   const ai = getAI();
-  const prompt = `
-    作为理科教学专家，基于以下信息生成一份专业的理科教案：
-    学科：${params.subject}
-    教学大纲：${params.syllabus}
-    教学目标：${params.goals}
-    教材内容：${params.content}
-    教学模式偏好：${params.mode}
+  
+  const textPart = {
+    text: `
+      作为理科教学专家，基于以下信息生成一份专业的理科教案：
+      学科：${params.subject}
+      教学大纲/已知背景：${params.syllabus}
+      教学目标要求：${params.goals}
+      手动输入的教材内容：${params.content}
+      教学模式偏好：${params.mode}
 
-    要求输出为结构化内容，包含：
-    1. 教学目标（三维目标）
-    2. 教学重难点
-    3. 导入环节设计
-    4. 核心知识点讲解
-    5. 课堂互动活动设计
-    6. 课堂总结
-    7. 课后作业建议
-  `;
+      注意：如果附带了图片资料（教科书、参考资料、旧教案），请深度解析图片中的知识点、图表和例题，并将其有机整合到新教案中。
+
+      要求输出为结构化内容，包含：
+      1. 教学目标（三维目标）
+      2. 教学重难点
+      3. 导入环节设计（需结合图片资料中的情境，如有）
+      4. 核心知识点讲解
+      5. 课堂互动活动设计
+      6. 课堂总结
+      7. 课后作业建议
+    `
+  };
+
+  const imageParts = (params.files || []).map(f => ({
+    inlineData: {
+      data: f.data,
+      mimeType: f.mimeType
+    }
+  }));
 
   const response = await ai.models.generateContent({
     model: 'gemini-3-pro-preview',
-    contents: prompt,
+    contents: { parts: [textPart, ...imageParts] },
     config: {
       temperature: 0.7,
       topP: 0.95,
